@@ -80,13 +80,13 @@ if (login == 'elando' and password == 'elando'):
                 if st.form_submit_button('Adicionar'): 
                     lista = [nome, tel, email, dt_nascimento, logradouro, nro_endereco, bairro
                              , cidade, profissional, dt_atendimento, como_nos_encontrou, obs]
-                    dados = pd.read_csv(arquivo_dados)
+                    dados = pd.read_csv(arquivo_dados, index_col=False)
                     ultima_linha = dados.shape[0]
                     dados.loc[ultima_linha] = lista
                     
                     # SALVANDO OS DADOS NO BANCO:
                     dados.to_csv(arquivo_dados, index=False)
-                    dados_atualizados = pd.read_csv(arquivo_dados)
+                    dados_atualizados = pd.read_csv(arquivo_dados, index_col=False)
                     st.write('Adicionado com sucesso !')
 
 
@@ -95,7 +95,7 @@ if (login == 'elando' and password == 'elando'):
             
             # FILTRO :
             
-            dados = pd.read_csv(arquivo_dados, dtype=str)
+            dados = pd.read_csv(arquivo_dados, dtype=str, index_col = False)
 
             busca_tel = st.sidebar.text_input('Buscar por telefone')
             if st.sidebar.button('Buscar pelo telefone') :
@@ -110,7 +110,7 @@ if (login == 'elando' and password == 'elando'):
                 
 
             if busca_nome == '' and busca_tel == '': 
-                dados = pd.read_csv(arquivo_dados, dtype=str)
+                dados = pd.read_csv(arquivo_dados, dtype=str, index_col = False)
                 st.subheader('Pacientes')
                 st.dataframe(dados)
 
